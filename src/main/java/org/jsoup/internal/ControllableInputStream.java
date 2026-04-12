@@ -133,7 +133,7 @@ public class ControllableInputStream extends FilterInputStream {
                 if (outBuf.remaining() < read) { // needs to grow
                     int newCapacity = (int) Math.max(outBuf.capacity() * 1.5, outBuf.capacity() + read);
                     ByteBuffer newBuffer = ByteBuffer.allocate(newCapacity);
-                    outBuf.flip();
+                    ((java.nio.Buffer) outBuf).flip();
                     newBuffer.put(outBuf);
                     outBuf = newBuffer;
                 }
@@ -143,7 +143,7 @@ public class ControllableInputStream extends FilterInputStream {
                     if (remaining <= 0) break;
                 }
             }
-            outBuf.flip(); // Prepare the buffer for reading
+            ((java.nio.Buffer) outBuf).flip(); // Prepare the buffer for reading
             return outBuf;
         } finally {
             SimpleBufferedInput.BufferPool.release(readBuf);
