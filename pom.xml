@@ -83,6 +83,7 @@
               <ignores>
                 <ignore>java.net.HttpURLConnection</ignore><!-- .setAuthenticator(java.net.Authenticator) in Java 9; only used in multirelease 9+ version -->
                 <ignore>java.net.http.*</ignore><!-- HttpClient in Java 11; only used in multirelease 11+ version -->
+                <ignore>java.nio.ByteBuffer</ignore>
               </ignores>
             </configuration>
           </execution>

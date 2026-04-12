@@ -142,7 +142,7 @@ enum TokeniserState {
             } else {
                 t.error(this);
                 t.createBogusCommentPending();
-                t.commentPending.append('/'); // push the / back on that got us here
+                // t.commentPending.append('/'); removed to fix HTML5 bogus comment deviation from specification
                 t.transition(BogusComment);
             }
         }
