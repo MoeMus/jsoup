@@ -287,42 +287,68 @@
         <dependencies>
             <dependency>
                 <groupId>org.pitest</groupId>
-                <artifactId>pitest-junit5-plugin</artifactId>
-                <version>1.2.3</version>
-            </dependency>
-        </dependencies>
-        <configuration>
-          <targetClasses>
-            <param>org.jsoup.parser.*</param>
-          </targetClasses>
-          <targetTests>
-            <param>org.jsoup.parser.*</param>
-          </targetTests>
-          <argLine>-Xmx2048m -Xss2m</argLine>
-          <threads>4</threads>
-          <timeoutConstant>15000</timeoutConstant>
-          <timestampedReports>false</timestampedReports>
-          <outputFormats>
-            <outputFormat>HTML</outputFormat>
-          </outputFormats>
-        </configuration>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>false</filtering>
-      </resource>
-      <resource>
-        <directory>./</directory>
-        <targetPath>META-INF/jsoup/</targetPath>
-        <filtering>false</filtering>
-        <includes>
-          <include>LICENSE</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.17.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.2</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetTests>
+                        <param>org.jsoup.*</param>
+                    </targetTests>
+                    <targetClasses>
+                        <param>org.jsoup.internal.*</param>
+<!--                        <param>org.jsoup.Jsoup</param>-->
+<!--                        <param>org.jsoup.helper.*</param>-->
+<!--                        <param>org.jsoup.internal.*</param>-->
+<!--                        <param>org.jsoup.nodes.*</param>-->
+<!--                        <param>org.jsoup.parser.*</param>-->
+<!--                        <param>org.jsoup.select.*</param>-->
+<!--                        <param>org.jsoup.safety.*</param>-->
+                    </targetClasses>
+                    <mutators>
+                        <mutator>DEFAULTS</mutator>
+                    </mutators>
+                    <outputFormats>
+                        <outputFormat>HTML</outputFormat>
+                        <outputFormat>XML</outputFormat>
+                    </outputFormats>
+                    <mutationThreshold>0</mutationThreshold>
+                    <jvmArgs>
+                        <jvmArg>-Xss640k</jvmArg>
+                        <jvmArg>--add-opens=java.base/java.lang=ALL-UNNAMED</jvmArg>
+                        <jvmArg>--add-opens=java.base/java.util=ALL-UNNAMED</jvmArg>
+                        <jvmArg>--add-opens=java.base/java.io=ALL-UNNAMED</jvmArg>
+                    </jvmArgs>
+                    <timeoutConstant>10000</timeoutConstant>
+                    <threads>4</threads>
+                    <withHistory>true</withHistory>
+                    <historyInputFile>${project.basedir}/pitest-history.bin</historyInputFile>
+                    <historyOutputFile>${project.basedir}/pitest-history.bin</historyOutputFile>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>./</directory>
+                <targetPath>META-INF/jsoup/</targetPath>
+                <filtering>false</filtering>
+                <includes>
+                    <include>LICENSE</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
     <profiles>
 
